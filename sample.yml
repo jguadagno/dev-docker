@@ -1,0 +1,57 @@
+version: '3.7'
+
+services:
+  neo4j:
+    image: "neo4j"
+    container_name: "neo4j"
+    ports:
+      - 7474:7474
+      - 7687:7687
+    restart: always
+    environment:
+      NEO4J_ACCEPT_LICENSE_AGREEMENT: "yes"
+      NEO4J_AUTH: none
+  mssql:
+    image: "mcr.microsoft.com/mssql/server"
+    container_name: mssql
+    hostname: mssql
+    environment:
+      SA_PASSWORD: "Pass123!"
+      ACCEPT_EULA: "Y"
+    restart: always
+    ports:
+      - 11433:1433
+  elasticsearch:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.5.1"
+    container_name: elasticsearch
+    hostname: elasticsearch
+    environment:
+      - discovery.type=single-node
+    restart: always
+    ports:
+      - 9200:9200
+      - 9300:9300
+  kibana:
+    image: "docker.elastic.co/kibana/kibana:7.5.1"
+    container_name: kibana
+    hostname: kibana
+    restart: always
+    ports:
+      - 5601:5601
+  postgresql:
+    image: "postgres"
+    container_name: "postgres"
+    hostname: "postgres"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: Pass123!
+    ports:
+      - 5432:5432
+  azurite:
+    image: "mcr.microsoft.com/azure-storage/azurite"
+    container_name: "azurite"
+    hostname: "azurite"
+    restart: always
+    ports:
+      - 10000:10000
+      - 10001:10001
