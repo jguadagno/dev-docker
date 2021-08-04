@@ -5,7 +5,7 @@ DECLARE @fileDate VARCHAR(20) -- used for file name
 
 --TODO: Change the path
 -- specify database backup directory
-SET @path = 'var/opt/mssql/data/backup/'
+SET @path = 'backup/'
  
 -- specify filename format
 SELECT @fileDate = CONVERT(VARCHAR(20),GETDATE(),112)

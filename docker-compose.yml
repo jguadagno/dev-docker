@@ -12,11 +12,11 @@ services:
     - '1433:1433'
     volumes: 
       ## Windows
-      - c:\Projects\Databases\Data:/var/opt/mssql/data
-      - C:\Projects\Databases\logs:/var/opt/mssql/logs
-      ## Mac
-      ##- /users/jguadagno/sql/data:/var/opt/mssql/data
-      ##- /var/folders/sql/logs:/var/opt/mssql/logs
+      ##- c:\Projects\Databases\Data:/var/opt/mssql/data
+      ##- C:\Projects\Databases\logs:/var/opt/mssql/logs
+      ## Mac (Case sensitive)
+      - /Users/jguadagno/sql/data:/var/opt/mssql/data
+      - /var/folders/sql/logs:/var/opt/mssql/logs
   postgresql:
     image: "postgres"
     container_name: "postgres"
@@ -30,7 +30,7 @@ services:
     image: "mcr.microsoft.com/azure-storage/azurite"
     container_name: "azurite"
     hostname: "azurite"
-    restart: always
+    restart: "no"
     ports:
       - 10000:10000
       - 10001:10001

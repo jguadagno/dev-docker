@@ -8,6 +8,14 @@ This requires `docker`, `docker-compose`, and a `.env` file.  The `.env` is not 
 SA_PASSWORD=MySecureP@ssw0rd
 ```
 
+## Running for the First Time
+
+Run the following command to build and start the containers
+
+```bash
+docker-compose up
+```
+
 ## Updating the Images
 
 Run the following commands to update the images
