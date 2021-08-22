@@ -4,8 +4,8 @@ DECLARE @fileName VARCHAR(256) -- filename for backup
 DECLARE @fileDate VARCHAR(20) -- used for file name
 
 --TODO: Change the path
--- specify database backup directory
-SET @path = 'backup/'
+-- specify database backup directory (Depends on the OS)
+SET @path = 'c:\Projects\Databases\backup'
  
 -- specify filename format
 SELECT @fileDate = CONVERT(VARCHAR(20),GETDATE(),112)
