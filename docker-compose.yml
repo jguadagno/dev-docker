@@ -11,6 +11,7 @@ services:
     ports: 
     - '1433:1433'
     volumes: 
+      ## TODO: Look into how to mac the volumes static and as a named volume
       ## Windows
       - c:\Projects\Databases\Data:/var/opt/mssql/data
       - C:\Projects\Databases\logs:/var/opt/mssql/logs
@@ -39,7 +40,7 @@ services:
   redis:
     container_name: redis
     image: redis:latest
-    restart: always
+    restart: "no"
     entrypoint: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD} --maxmemory 512mb --maxmemory-policy allkeys-lru
     networks:
       - default
