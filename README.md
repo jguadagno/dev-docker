@@ -6,6 +6,22 @@ This requires `docker`, `docker-compose`, and a `.env` file.  The `.env` is not 
 
 ```bash
 SA_PASSWORD=MySecureP@ssw0rd
+DATABASE_FOLDER=C:\MyPath\To\My\SQL\Data
+```
+
+For Windows
+
+```yaml
+    - c:\Databases\Data:/var/opt/mssql/data
+    - c:\Databases\logs:/var/opt/mssql/logs
+```
+
+For Mac
+
+```yaml
+    ## (Case sensitive)
+    - /Users/username/sql/data:/var/opt/mssql/data
+    - /var/folders/sql/logs:/var/opt/mssql/logs
 ```
 
 ## Running for the First Time

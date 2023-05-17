@@ -11,13 +11,8 @@ services:
     ports: 
     - '1433:1433'
     volumes: 
-      ## TODO: Look into how to mac the volumes static and as a named volume
-      ## Windows
-      - c:\Projects\Databases\Data:/var/opt/mssql/data
-      - C:\Projects\Databases\logs:/var/opt/mssql/logs
-      ## Mac (Case sensitive)
-      ##- /Users/jguadagno/sql/data:/var/opt/mssql/data
-      ##- /var/folders/sql/logs:/var/opt/mssql/logs
+      - ${DATABASE_FOLDER}\Data:/var/opt/mssql/data
+      - ${DATABASE_FOLDER}\logs:/var/opt/mssql/logs
   postgresql:
     image: "postgres"
     container_name: "postgres"
@@ -41,10 +36,10 @@ services:
     container_name: redis
     image: redis:latest
     restart: "no"
-    entrypoint: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD} --maxmemory 512mb --maxmemory-policy allkeys-lru
+    entrypoint: redis-server --appendonly yes --requirepass ${SA_PASSWORD} --maxmemory 512mb --maxmemory-policy allkeys-lru
     networks:
       - default
     ports:
       - "6379:6379"
     volumes:
-      - $DOCKERDIR/appdata/redis/data:/data
+      - ${DATABASE_FOLDER}/redis/data:/data
