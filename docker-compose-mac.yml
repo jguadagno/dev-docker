@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+  SQLServer:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    container_name: SQLServer
+    restart: always
+    environment:
+    - ACCEPT_EULA=Y
+    - SA_PASSWORD=${SA_PASSWORD}
+    ports: 
+    - '1433:1433'
+    volumes: 
+      - ${DATABASE_FOLDER}/sql_server:/var/opt/mssql/data
+      - ${DATABASE_FOLDER}/sql_server/logs:/var/opt/mssql/logs
+  postgresql:
+    image: "postgres"
+    container_name: "postgres"
+    hostname: "postgres"
+    restart: "no"
+    environment:
+      POSTGRES_PASSWORD: ${SA_PASSWORD}
+    ports:
+      - 5432:5432
+  azurite:
+    image: "mcr.microsoft.com/azure-storage/azurite"
+    container_name: "azurite"
+    hostname: "azurite"
+    restart: "no"
+    ports:
+      - 10000:10000
+      - 10001:10001
+      - 10002:10002
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: "no"
+    entrypoint: redis-server --appendonly yes --requirepass ${SA_PASSWORD} --maxmemory 512mb --maxmemory-policy allkeys-lru
+    networks:
+      - default
+    ports:
+      - "6379:6379"
+    volumes:
+      - ${DATABASE_FOLDER}/redis/data:/data

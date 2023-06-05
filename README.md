@@ -6,7 +6,7 @@ This requires `docker`, `docker-compose`, and a `.env` file.  The `.env` is not 
 
 ```bash
 SA_PASSWORD=MySecureP@ssw0rd
-DATABASE_FOLDER=C:\MyPath\To\My\SQL\Data
+DATABASE_FOLDER=C:\MyPath\To\My\SQL\Data # Case sensitive on the Mac
 ```
 
 For Windows
@@ -23,6 +23,12 @@ For Mac
     - /Users/username/sql/data:/var/opt/mssql/data
     - /var/folders/sql/logs:/var/opt/mssql/logs
 ```
+
+On a Mac, you may need to update the permissions on the folders
+
+```bash
+ chown -R 10001:0 <DATA_FOLDER>
+ ```
 
 ## Running for the First Time
 
