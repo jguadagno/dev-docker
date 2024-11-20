@@ -12,7 +12,7 @@ services:
       - ${DATABASE_FOLDER}\Data:/var/opt/mssql/data
       - ${DATABASE_FOLDER}\logs:/var/opt/mssql/logs
   postgresql:
-    image: "postgres"
+    image: "postgres:latest"
     container_name: "postgres"
     hostname: "postgres"
     restart: "no"
@@ -20,6 +20,7 @@ services:
       POSTGRES_PASSWORD: ${SA_PASSWORD}
     ports:
       - 5432:5432
+    
   azurite:
     image: "mcr.microsoft.com/azure-storage/azurite"
     container_name: "azurite"
@@ -41,3 +42,36 @@ services:
       - "6379:6379"
     volumes:
       - ${DATABASE_FOLDER}/redis/data:/data
+  # Service Bus Emulator
+  # Reference: https://mcr.microsoft.com/en-us/artifact/mar/azure-messaging/servicebus-emulator/about
+  emulator:
+    container_name: "servicebus-emulator"
+    image: mcr.microsoft.com/azure-messaging/servicebus-emulator:latest
+    restart: "no"
+    volumes:
+      - "${CONFIG_PATH}:/ServiceBus_Emulator/ConfigFiles/Config.json"
+    ports:
+      - "5672:5672"
+    environment:
+      SQL_SERVER: sqledge  
+      MSSQL_SA_PASSWORD: ${SA_PASSWORD}
+      ACCEPT_EULA: "Y"
+    depends_on:
+      - sqledge
+    networks:
+      sb-emulator:
+        aliases:
+          - "sb-emulator"
+  sqledge:
+    container_name: "sqledge"
+    image: "mcr.microsoft.com/azure-sql-edge:latest"
+    restart: "no"
+    networks:
+      sb-emulator:
+        aliases:
+          - "sqledge"
+    environment:
+      ACCEPT_EULA: ${ACCEPT_EULA}
+      MSSQL_SA_PASSWORD: ${SA_PASSWORD}
+networks:
+  sb-emulator:

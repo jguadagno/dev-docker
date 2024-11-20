@@ -7,6 +7,7 @@ This requires `docker`, `docker-compose`, and a `.env` file.  The `.env` is not 
 ```bash
 SA_PASSWORD=MySecureP@ssw0rd
 DATABASE_FOLDER=C:\MyPath\To\My\SQL\Data # Case sensitive on the Mac
+CONFIG_PATH="D:\Projects\dev-docker\config.json"
 ```
 
 For Windows
