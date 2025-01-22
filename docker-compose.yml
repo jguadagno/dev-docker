@@ -36,8 +36,6 @@ services:
     image: redis:latest
     restart: "no"
     entrypoint: redis-server --appendonly yes --requirepass ${SA_PASSWORD} --maxmemory 512mb --maxmemory-policy allkeys-lru
-    networks:
-      - default
     ports:
       - "6379:6379"
     volumes:
@@ -73,5 +71,18 @@ services:
     environment:
       ACCEPT_EULA: ${ACCEPT_EULA}
       MSSQL_SA_PASSWORD: ${SA_PASSWORD}
+  MySql:
+    container_name: "mysql"
+    image: mysql:latest
+    restart: "no"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${SA_PASSWORD}
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+volumes:
+  mysql-data:
+    driver: local
 networks:
   sb-emulator:
