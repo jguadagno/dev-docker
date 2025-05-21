@@ -11,6 +11,18 @@ services:
     volumes: 
       - ${DATABASE_FOLDER}/sql_server:/var/opt/mssql/data
       - ${DATABASE_FOLDER}/sql_server/logs:/var/opt/mssql/logs
+SQLServer2025:
+  image: mcr.microsoft.com/mssql/server:2025-latest
+  container_name: SQLServer2025
+  restart: "no"
+  environment:
+  - ACCEPT_EULA=Y
+  - MSSQL_SA_PASSWORD=${SA_PASSWORD}
+  ports: 
+  - '1402:1433'
+  volumes: 
+    - ${DATABASE_FOLDER}\Data:/var/opt/mssql2025/data
+    - ${DATABASE_FOLDER}\logs:/var/opt/mssql2025/logs
   postgresql:
     image: "postgres"
     container_name: "postgres"
